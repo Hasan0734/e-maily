@@ -17,7 +17,8 @@ const TopBar = ({ copied, copyHTML }) => {
     <div className="flex h-14 items-center justify-between bg-sidebar text-sidebar-foreground border-b border-slate-200  px-4 dark:border-slate-800 ">
       <div className="flex items-center gap-2">
         <SidebarTrigger />
-        <div className="hidden xs:block md:hidden lg:block text-sm font-medium text-slate-500 dark:text-slate-400">
+        {/* md:hidden lg:block */}
+        <div className="hidden xs:block  text-sm font-medium text-slate-500 dark:text-slate-400">
           <span className="text-slate-700 dark:text-slate-300">
             Hello World
           </span>
@@ -46,7 +47,7 @@ const TopBar = ({ copied, copyHTML }) => {
           </PopoverContent>
         </Popover>
 
-        <Button variant="outline" size="sm" className="gap-2">
+        {/* <Button variant="outline" size="sm" className="gap-2">
           <Eye className="h-4 w-4" />
           <span className="hidden md:block">Preview Email</span>
         </Button>
@@ -65,7 +66,7 @@ const TopBar = ({ copied, copyHTML }) => {
           <span className="hidden md:block">
             {copied ? "Copied!" : "Copy HTML"}
           </span>
-        </Button>
+        </Button> */}
 
         <Button variant="outline" size="sm" className="gap-2">
           <Send className="h-4 w-4" />

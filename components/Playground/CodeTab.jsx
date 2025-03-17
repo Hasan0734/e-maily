@@ -17,22 +17,22 @@ const CodeTab = ({ copyHTML, copied }) => {
   return (
     <TabsContent value="code">
       <Card className="overflow-hidden border-slate-200 dark:border-slate-700">
-        <div className="px-6 flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+        <div className="px-3 sm:px-6 flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
           <div className="flex items-center gap-2 text-lg font-medium">
             <Code className="h-5 w-5 text-slate-500" />
             <span className="">HTML Code</span>
           </div>
 
-          <Button variant="ghost" size="sm" onClick={copyHTML}>
+          <Button variant="outline" size="sm" onClick={copyHTML}>
             {copied ? (
-              <Check className="mr-2 h-4 w-4" />
+              <Check className=" h-4 w-4" />
             ) : (
-              <Copy className="mr-2 h-4 w-4" />
+              <Copy className=" h-4 w-4" />
             )}
             {copied ? "Copied!" : "Copy"}
           </Button>
         </div>
-        <div className="px-6">
+        <div className="px-3 sm:px-6">
           <Editor
           className="rounded-md"
             height="70vh"

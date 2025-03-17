@@ -8,7 +8,7 @@ const Preview = () => {
   return (
     <TabsContent value="preview">
     <Card className="overflow-hidden border-slate-200 dark:border-slate-700">
-      <div className="px-6 flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+      <div className="px-3 sm:px-6 flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
         <div className="flex items-center gap-2 text-lg font-medium">
           <Eye className="h-5 w-5 text-slate-500" />
           <span className="">Email Preview</span>
@@ -20,7 +20,7 @@ const Preview = () => {
         </Button>
       </div>
 
-      <div className="bg-slate-100 p-6 dark:bg-slate-800">
+      <div className="p-3 sm:p-6 ">
         <div className="mx-auto max-w-2xl overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900">
           <div className="p-6">
             <div className="mb-6 flex justify-center">

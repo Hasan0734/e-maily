@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 const Design = () => {
   return (
     <TabsContent value="design" className="space-y-6">
-      <Card className="overflow-hidden border-slate-200 p-6 dark:border-slate-700">
+      <Card className="overflow-hidden border-slate-200 p-3 sm:p-6 dark:border-slate-700">
         <h2 className="mb-4 text-lg font-medium">Email Details</h2>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -48,10 +48,10 @@ const Design = () => {
         </div>
       </Card>
 
-      <Card className="overflow-hidden border-slate-200 p-6 dark:border-slate-700">
+      <Card className="overflow-hidden border-slate-200 p-3 sm:p-6 dark:border-slate-700">
         <h2 className="mb-4 text-lg font-medium">Email Content</h2>
 
-        <div className="rounded-md border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
+        <div className="rounded-md border border-slate-200 bg-white px-3 sm:p-6 dark:border-slate-700 dark:bg-slate-900">
           <div className="mx-auto max-w-2xl">
             <div className="mb-6 flex justify-center">
               <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-slate-200 dark:border-slate-700">

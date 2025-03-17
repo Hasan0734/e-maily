@@ -20,7 +20,7 @@ const EditorArea = () => {
       <TopBar copied={copied} copyHTML={copyHTML} />
 
       <div className="flex flex-1 overflow-hidden">
-        <div className="flex flex-1 flex-col overflow-auto p-6">
+        <div className="flex flex-1 flex-col overflow-auto px-4 sm:p-6">
           <Tabs defaultValue="design" className="w-full">
             <div className="mb-6 flex items-center justify-between">
               <TabsList className="grid w-[400px] grid-cols-3">
@@ -31,7 +31,7 @@ const EditorArea = () => {
             </div>
 
             <Design />
-            <CodeTab copied={copied} copyHTM={copyHTML}/>
+            <CodeTab copied={copied} copyHTML={copyHTML}/>
             <Preview/>
           </Tabs>
         </div>

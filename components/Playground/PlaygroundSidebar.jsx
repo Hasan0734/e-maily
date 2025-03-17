@@ -47,7 +47,7 @@ const PlayGroundSidebar = () => {
                   key={template.id}
                   className={`w-full rounded-md px-2 py-1.5 text-left text-sm transition-colors ${
                     activeTemplate === template.id
-                      ? " font-medium bg-slate-300 text-cyan-900 dark:bg-cyan-900/20 dark:text-cyan-300"
+                      ? " font-medium bg-slate-100 text-cyan-900 dark:bg-cyan-900/20 dark:text-cyan-300"
                       : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                   }`}
                   onClick={() => setActiveTemplate(template.id)}
