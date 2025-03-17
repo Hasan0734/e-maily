@@ -1,16 +1,18 @@
 "use client";
 
-import Sidebar from "@/components/Playground/Sidebar";
 import EditorArea from "@/components/Playground/EditorArea";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import PlayGroundSidebar from "@/components/Playground/PlaygroundSidebar";
 
 const Playground = () => {
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-900">
-      {/* Sidebar */}
-      <Sidebar />
-
-      <EditorArea />
-    </div>
+    <SidebarProvider>
+      <PlayGroundSidebar />
+      <div className=" bg-sidebar text-sidebar-foreground w-full">
+       
+        <EditorArea />
+      </div>
+    </SidebarProvider>
   );
 };
 

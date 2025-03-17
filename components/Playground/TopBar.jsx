@@ -9,14 +9,19 @@ import { Check, Copy, Eye, Save, Send, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ApiFrom from "./ApiFrom";
-
+import { ThemeToggle } from "../theme-toggle";
+import { SidebarTrigger } from "../ui/sidebar";
 
 const TopBar = ({ copied, copyHTML }) => {
   return (
-    <div className="flex h-14 items-center justify-between border-b border-slate-200 bg-white px-4 dark:border-slate-800 dark:bg-slate-950">
-      <div className="text-sm font-medium text-slate-500 dark:text-slate-400">
-       
-        <span className="text-slate-700 dark:text-slate-300">Hello World</span>
+    <div className="flex h-14 items-center justify-between bg-sidebar text-sidebar-foreground border-b border-slate-200  px-4 dark:border-slate-800 ">
+      <div className="flex items-center gap-2">
+        <SidebarTrigger />
+        <div className="hidden xs:block md:hidden lg:block text-sm font-medium text-slate-500 dark:text-slate-400">
+          <span className="text-slate-700 dark:text-slate-300">
+            Hello World
+          </span>
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
@@ -37,14 +42,13 @@ const TopBar = ({ copied, copyHTML }) => {
           </TooltipProvider>
 
           <PopoverContent className="w-80">
-           <ApiFrom/>
+            <ApiFrom />
           </PopoverContent>
         </Popover>
 
-
         <Button variant="outline" size="sm" className="gap-2">
           <Eye className="h-4 w-4" />
-          Preview Email
+          <span className="hidden md:block">Preview Email</span>
         </Button>
 
         <Button
@@ -58,18 +62,21 @@ const TopBar = ({ copied, copyHTML }) => {
           ) : (
             <Copy className="h-4 w-4" />
           )}
-          {copied ? "Copied!" : "Copy HTML"}
+          <span className="hidden md:block">
+            {copied ? "Copied!" : "Copy HTML"}
+          </span>
         </Button>
 
         <Button variant="outline" size="sm" className="gap-2">
           <Send className="h-4 w-4" />
-          Send Email
+          <span className="hidden md:block">Send Email</span>
         </Button>
 
         <Button size="sm" className="gap-2 bg-cyan-500 hover:bg-cyan-600">
           <Save className="h-4 w-4" />
-          Save
+          <span className="hidden md:block"> Save</span>
         </Button>
+        <ThemeToggle />
       </div>
     </div>
   );

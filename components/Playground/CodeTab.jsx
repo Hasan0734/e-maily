@@ -35,7 +35,7 @@ const CodeTab = ({ copyHTML, copied }) => {
         <div className="px-6">
           <Editor
           className="rounded-md"
-            height="500px"
+            height="70vh"
             defaultLanguage="html"
             defaultValue={htmlTemplate}
             theme="vs-dark"
