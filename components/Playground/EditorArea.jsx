@@ -63,9 +63,6 @@ const EditorArea = () => {
               </div>
             </Card>
 
-
-
-
             <Card className="overflow-hidden border-slate-200 p-3 sm:p-6 dark:border-slate-700">
    
               <div className="flex items-center justify-between">

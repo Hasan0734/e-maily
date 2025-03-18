@@ -36,7 +36,13 @@ const TempEditor = ({ activeTab, setTemplate }) => {
     unlayer?.exportHtml((data) => {
       const { design, html } = data;
       setTemplate(html);
+      console.log(data)
+      const blob = new Blob([data.html], { type: "text/html" });
+      const blobUrl = URL.createObjectURL(blob);
+     
     });
+
+
   };
 
   const onReady = (unlayer) => {};

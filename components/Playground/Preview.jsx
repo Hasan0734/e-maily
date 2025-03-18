@@ -5,18 +5,16 @@ import { ArrowRight, Eye, Image, Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import EmailEditor from "react-email-editor";
 
-const Preview = ({template}) => {
+const Preview = ({ template }) => {
   const emailEditorRef = useRef(null);
 
   console.log(template);
-  const onReady = (unlayer) => {
-  };
+  const onReady = (unlayer) => {};
 
   const onLoad = (unlayer) => {
     console.log("onLoad", unlayer);
     unlayer.loadDesign(template);
     unlayer?.showPreview("desktop");
-
   };
 
   return (
@@ -28,8 +26,16 @@ const Preview = ({template}) => {
         onLoad={onLoad}
       /> */}
 
-
-     
+      {template && (
+        <div
+          dangerouslySetInnerHTML={{ __html: template }}
+          style={{
+            border: "1px solid #ccc",
+            padding: "10px",
+            marginTop: "20px",
+          }}
+        />
+      )}
     </TabsContent>
   );
 };
