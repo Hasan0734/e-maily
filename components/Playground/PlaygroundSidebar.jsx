@@ -13,7 +13,7 @@ const PlayGroundSidebar = () => {
   const [activeTemplate, setActiveTemplate] = useState("hello-world");
 
   return (
-    <Sidebar className={'bg-foreground'}>
+    <Sidebar className={"bg-foreground"}>
       <SidebarHeader>
         <div className="flex justify-center items-center">
           <h1 className="flex items-center text-xl font-bold">
@@ -68,8 +68,6 @@ const PlayGroundSidebar = () => {
         </Button>
       </SidebarFooter>
     </Sidebar>
-
-
   );
 };
 

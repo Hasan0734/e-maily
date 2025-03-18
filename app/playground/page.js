@@ -8,8 +8,7 @@ const Playground = () => {
   return (
     <SidebarProvider>
       <PlayGroundSidebar />
-      <div className=" bg-sidebar text-sidebar-foreground w-full">
-       
+      <div className="bg-sidebar text-sidebar-foreground w-full">
         <EditorArea />
       </div>
     </SidebarProvider>
