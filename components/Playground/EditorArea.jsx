@@ -4,11 +4,16 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TopBar from "./TopBar";
 import CodeTab from "./CodeTab";
 import Preview from "./Preview";
-import TempEditor from "./TempEditor";
+// import TempEditor from "./TempEditor";
 import { Card } from "../ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BrushIcon, CodeIcon, EyeIcon } from "lucide-react";
+import dynamic from "next/dynamic";
+
+export const TempEditor = dynamic(() => import("./TempEditor"), { ssr: false });
+
+
 
 const EditorArea = () => {
   const [copied, setCopied] = useState(false);

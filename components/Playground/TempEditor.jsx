@@ -1,103 +1,109 @@
-import { TabsContent } from "@radix-ui/react-tabs";
-import React, { useEffect, useRef } from "react";
-import { Card } from "../ui/card";
-import EmailEditor from "react-email-editor";
-import { Button } from "../ui/button";
-import sample from "./sample.json";
-import { Reader } from '@usewaypoint/email-builder';
+"use client";
 
+import React, { useEffect, useRef, useState } from "react";
+import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+import List from "@editorjs/list";
+// import { AnyButton } from "editorjs-button";
+import { TabsContent } from "../ui/tabs";
+import dynamic from "next/dynamic";
+import Paragraph from "@editorjs/paragraph";
+
+// const EditorJS = dynamic(() => import('@editorjs/editorjs').then(mod => mod.Steps), {
+//   ssr: false
+// });
+
+const EDITTOR_HOLDER_ID = "editorjs";
 
 const TempEditor = ({ activeTab, setTemplate }) => {
-  const emailEditorRef = useRef(null);
+  const ejInstance = useRef(null);
+  const [editorData, setEditorData] = useState(null);
 
+  useEffect(() => {
+    // Ensure Editor.js runs only in the browser
+    if (typeof window !== "undefined") {
+      if (!ejInstance.current) {
+        initEditor();
+      }
+    }
 
+    return () => {
+      if (ejInstance.current && ejInstance.current.destroy) {
+        ejInstance.current.destroy();
+        ejInstance.current = null;
+      }
+    };
+  }, []);
 
-  // const togglePreview = () => {
-  //   const unlayer = emailEditorRef.current?.editor;
-
-  //   if (preview) {
-  //     unlayer?.hidePreview();
-  //     setPreview(false);
-  //   } else {
-  //     unlayer?.showPreview('desktop');
-  //     setPreview(true);
-  //   }
-  // };
-
-  const exportHtml = () => {
-    const unlayer = emailEditorRef.current?.editor;
-
-    unlayer?.exportHtml((data) => {
-      const { design, html } = data;
-      setTemplate(html);
-    });
-  };
-
-  const saveDesign = () => {
-    const unlayer = emailEditorRef.current?.editor;
-    unlayer?.exportHtml((data) => {
-      const { design, html } = data;
-      setTemplate(html);
-      console.log(data)
-      const blob = new Blob([data.html], { type: "text/html" });
-      const blobUrl = URL.createObjectURL(blob);
-     
-    });
-
-
-  };
-
-  const onReady = (unlayer) => {};
-
-  const onLoad = (unlayer) => {
-    console.log("onLoad", unlayer);
-    unlayer.loadDesign(sample);
-  };
-  const CONFIGURATION = {
-    root: {
-      type: 'EmailLayout',
-      data: {
-        backdropColor: '#F8F8F8',
-        canvasColor: '#FFFFFF',
-        textColor: '#242424',
-        fontFamily: 'MODERN_SANS',
-        childrenIds: ['block-1709578146127'],
+  const initEditor = () => {
+    const editor = new EditorJS({
+      holder: EDITTOR_HOLDER_ID,
+      logLevel: "ERROR",
+      data: editorData || {
+        time: new Date().getTime(),
+        blocks: [
+          {
+            type: "header",
+            data: {
+              text: "Type here you email and create a template",
+              level: 2,
+            },
+          },
+        ],
       },
-    },
-    'block-1709578146127': {
-      type: 'Text',
-      data: {
-        style: {
-          fontWeight: 'normal',
-          padding: {
-            top: 16,
-            bottom: 16,
-            right: 24,
-            left: 24,
+      onReady: (editor) => {
+        ejInstance.current = editor;
+        console.log(first)
+      },
+      onChange: async (editor) => {
+        let content = await editor.saver.save();
+        setEditorData(content);
+      },
+      autofocus: true,
+      tools: {
+        paragraph: {
+          class: Paragraph,
+          inlineToolbar: true,
+        },
+        header: {
+          class: Header,
+          inlineToolbar: ["bold", "link", "color"],
+          shortcut: "CMD+SHIFT+H",
+          config: {
+            placeholder: "Enter a header",
+            // levels: [1, 2, 3, 4, 5, 6],
+            defaultLevel: 1,
           },
         },
-        props: {
-          text: 'Hello world',
-        },
+        list: List,
+
+        // AnyButton: {
+        //   class: AnyButton,
+        //   inlineToolbar: false,
+        //   config:{
+        //     css:{
+        //       "btnColor": "btn--gray",
+        //     },
+        //     textValidation: (text) => {
+        //       console.log("error!", text)
+        //       return true;
+        //     },
+        //     linkValidation: (text) => {
+        //       console.log("error!", text)
+        //       return false;
+        //     }
+        //   }
+        // },
       },
-    },
+    });
   };
 
   return (
     <TabsContent value="design" className="">
-      <div className="pl-10">
-        <Button onClick={saveDesign}>Save</Button>
-      </div>
-
-     <Reader document={CONFIGURATION} rootBlockId="root" />;
-      {/* <EmailEditor
-        id="editor-container"
-        ref={emailEditorRef}
-        onReady={onReady}
-        onLoad={onLoad}
-      /> */}
+      <div id={EDITTOR_HOLDER_ID} className=""></div>
     </TabsContent>
   );
 };
 
 export default TempEditor;
+
