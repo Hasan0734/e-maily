@@ -10,22 +10,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BrushIcon, CodeIcon, EyeIcon } from "lucide-react";
 import dynamic from "next/dynamic";
+import TempEditor2 from "./TempEditor2";
 
-export const TempEditor = dynamic(() => import("./TempEditor"), { ssr: false });
-
-
+// export const TempEditor = dynamic(() => import("./TempEditor"), { ssr: false });
 
 const EditorArea = () => {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState('design');
-  const [template, setTemplate] = useState({})
-
+  const [activeTab, setActiveTab] = useState("design");
+  const [template, setTemplate] = useState({});
 
   const copyHTML = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
 
   return (
     <div className="flex flex-1 flex-col">
@@ -69,28 +66,36 @@ const EditorArea = () => {
             </Card>
 
             <Card className="overflow-hidden border-slate-200 p-3 sm:p-6 dark:border-slate-700">
-   
               <div className="flex items-center justify-between">
                 <TabsList className="grid w-[400px] grid-cols-3">
-                  <TabsTrigger value="design" onClick={() => setActiveTab('design')}>
+                  <TabsTrigger
+                    value="design"
+                    onClick={() => setActiveTab("design")}
+                  >
                     <BrushIcon /> Design
                   </TabsTrigger>
-                  <TabsTrigger value="code" onClick={() => setActiveTab('code')}>
+                  <TabsTrigger
+                    value="code"
+                    onClick={() => setActiveTab("code")}
+                  >
                     <CodeIcon /> HTML
                   </TabsTrigger>
-                  <TabsTrigger value="preview" onClick={() => setActiveTab('preview')}>
+                  <TabsTrigger
+                    value="preview"
+                    onClick={() => setActiveTab("preview")}
+                  >
                     <EyeIcon /> Preview
                   </TabsTrigger>
                 </TabsList>
               </div>
 
               <Card>
-                <TempEditor setTemplate={setTemplate} template={template} activeTab={activeTab} />
+                {/* <TempEditor setTemplate={setTemplate} template={template} activeTab={activeTab} /> */}
+                <TempEditor2 />
                 <CodeTab copied={copied} copyHTML={copyHTML} />
                 <Preview template={template} />
               </Card>
             </Card>
-
           </Tabs>
         </div>
       </div>
