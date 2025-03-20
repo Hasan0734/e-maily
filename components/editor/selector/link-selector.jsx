@@ -26,7 +26,7 @@ export function getUrlFromString(str) {
 }
 
 
-export const LinkSelector = ({ open, onOpenChange }) => {
+export const LinkSelector = ({ open, onOpenChange }) => { 
   const inputRef = useRef<HTMLInputElement>(null);
   const { editor } = useEditor();
 

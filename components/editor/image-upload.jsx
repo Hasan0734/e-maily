@@ -16,7 +16,7 @@ const onUpload = (file) => {
       promise.then(async (res) => {
         // Successfully uploaded image
         if (res.status === 200) {
-          const { url } = await res.json();
+          const { url } = (await res.json());
           // preload the image
           const image = new Image();
           image.src = url;
@@ -26,9 +26,7 @@ const onUpload = (file) => {
           // No blob store configured
         } else if (res.status === 401) {
           resolve(file);
-          throw new Error(
-            "`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead."
-          );
+          throw new Error("`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.");
           // Unknown error
         } else {
           throw new Error("Error uploading image. Please try again.");
@@ -41,7 +39,7 @@ const onUpload = (file) => {
           reject(e);
           return e.message;
         },
-      }
+      },
     );
   });
 };
