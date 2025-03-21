@@ -10,9 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { BrushIcon, CodeIcon, EyeIcon } from "lucide-react";
 import dynamic from "next/dynamic";
-// import TempEditor2 from "./TempEditor2";
+import TempEditor2 from "./TempEditor2";
 
-export const TempEditor2 = dynamic(() => import("./TempEditor2"), { ssr: false });
+// export const TempEditor2 = dynamic(() => import("./TempEditor2"), { ssr: false });
 
 const EditorArea = () => {
   const [copied, setCopied] = useState(false);

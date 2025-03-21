@@ -1,32 +1,32 @@
-import { EditorBubble, useEditor ,removeAIHighlight} from 'novel'
+// import { EditorBubble, useEditor ,removeAIHighlight} from 'novel'
 
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 
-export default function EditorMenu({
-  children,
-  open,
-  onOpenChange
-}) {
-  const { editor } = useEditor()
+// export default function EditorMenu({
+//   children,
+//   open,
+//   onOpenChange
+// }) {
+//   const { editor } = useEditor()
 
-  useEffect(() => {
-    if (!editor) return
-    if (!open) removeAIHighlight(editor)
-  }, [open])
+//   useEffect(() => {
+//     if (!editor) return
+//     if (!open) removeAIHighlight(editor)
+//   }, [open])
 
-  return (
-    <EditorBubble
-      tippyOptions={{
-        placement: open ? 'bottom-start' : 'top',
-        onHidden: () => {
-          onOpenChange(false)
-          editor?.chain().unsetHighlight().run()
-        }
-      }}
-      className='flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl'
-    >
-      {!open && children}
-    </EditorBubble>
-  )
-}
+//   return (
+//     <EditorBubble
+//       tippyOptions={{
+//         placement: open ? 'bottom-start' : 'top',
+//         onHidden: () => {
+//           onOpenChange(false)
+//           editor?.chain()?.unsetHighlight().run()
+//         }
+//       }}
+//       className='flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl'
+//     >
+//       {!open && children}
+//     </EditorBubble>
+//   )
+// }
