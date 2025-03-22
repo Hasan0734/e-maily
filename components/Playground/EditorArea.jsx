@@ -1,27 +1,44 @@
-import React, { act } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TopBar from "./TopBar";
 import CodeTab from "./CodeTab";
 import Preview from "./Preview";
-// import TempEditor from "./TempEditor";
 import { Card } from "../ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BrushIcon, CodeIcon, EyeIcon } from "lucide-react";
-import dynamic from "next/dynamic";
-// import TempEditor2 from "./TempEditor2";
-
-export const TempEditor2 = dynamic(() => import("./TempEditor2"), { ssr: false });
+import { BrushIcon, CodeIcon, EyeIcon, Save } from "lucide-react";
+import { Editor } from "../editor/DynamicEditor";
+import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
+import { cn, loadFromStorage, saveToStorage } from "@/lib/utils";
+import { toast } from "sonner";
 
 const EditorArea = () => {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("design");
-  const [template, setTemplate] = useState({});
+  const [template, setTemplate] = useState(null);
 
   const copyHTML = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  useEffect(() => {
+    loadFromStorage("editorContent").then((content) => {
+      setTemplate(content);
+    });
+  }, []);
+
+  const saveDocument = () => {
+    if (!template) {
+      toast.error("You are nothing to type");
+      return;
+    }
+
+    saveToStorage("editorContent", template).then(() => {
+      toast.success("Template saved");
+    });
   };
 
   return (
@@ -87,14 +104,26 @@ const EditorArea = () => {
                     <EyeIcon /> Preview
                   </TabsTrigger>
                 </TabsList>
-              </div>
 
-              <Card>
-                {/* <TempEditor setTemplate={setTemplate} template={template} activeTab={activeTab} /> */}
-                <TempEditor2 />
-                <CodeTab copied={copied} copyHTML={copyHTML} />
-                <Preview template={template} />
-              </Card>
+                <Button onClick={saveDocument}>
+                  <Save className="h-4 w-4" />
+                  Save
+                </Button>
+              </div>
+              <Separator />
+
+              <div className="max-w-2xl mx-auto w-full">
+                <TabsContent value="design">
+                  <Card>
+                    {/* <Tiptap /> */}
+                    <Editor setTemplate={setTemplate} template={template} />
+                  </Card>
+                </TabsContent>
+                <Card className={"py-0 overflow-hidden"}>
+                  <CodeTab copied={copied} copyHTML={copyHTML} />
+                  <Preview template={template} />
+                </Card>
+              </div>
             </Card>
           </Tabs>
         </div>

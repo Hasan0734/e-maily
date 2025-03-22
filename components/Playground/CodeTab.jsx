@@ -1,47 +1,54 @@
 import { Check, Code, Copy } from "lucide-react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { TabsContent } from "../ui/tabs";
 import { Card } from "../ui/card";
 import { htmlTemplate } from "@/data/template";
-import Editor from "@monaco-editor/react";
+import hljs from "highlight.js/lib/core";
+import xml from "highlight.js/lib/languages/xml"; // Import XML (HTML) highlighting
+import "highlight.js/styles/atom-one-dark.css"; // Import theme
+
+hljs.registerLanguage("xml", xml);
 
 const CodeTab = ({ copyHTML, copied }) => {
-  const editorRef = useRef(null);
+  const [highlightedCode, setHighlightedCode] = useState("");
 
-  const handleEditorDidMount = (editor) => {
-    editorRef.current = editor;
-  };
+  useEffect(() => {
+    // Highlight code after rendering
+    if (htmlTemplate) {
+      const formattedCode = hljs.highlight(htmlTemplate, {
+        language: "xml",
+      }).value;
+      setHighlightedCode(formattedCode);
+    }
+  }, [htmlTemplate]); // Re-run when template updates
 
   return (
     <TabsContent value="code">
-      <div className="px-3 sm:px-6 flex items-center justify-end border-b border-slate-200 dark:border-slate-700 pb-4 mb-3">
-        <Button variant="outline" size="sm" onClick={copyHTML}>
-          {copied ? (
-            <Check className=" h-4 w-4" />
-          ) : (
-            <Copy className=" h-4 w-4" />
-          )}
-          {copied ? "Copied!" : "Copy"}
-        </Button>
-      </div>
-      <div className="px-3 sm:px-6">
-        <Editor
-          className="rounded-md"
-          height="70vh"
-          defaultLanguage="html"
-          defaultValue={htmlTemplate}
-          theme="vs-dark"
-          onChange={(value) => setCode(value)}
-          onMount={handleEditorDidMount}
-          options={{
-            minimap: { enabled: false },
-            fontSize: 14,
-            wordWrap: "on",
-            formatOnPaste: true,
-            formatOnType: true,
-          }}
-        />
+      <div className="relative">
+        <pre class="theme-atom-one-dark shadow-3xl text-sm   max-w-full tab-size h-full max-h-[600px] overflow-scroll group">
+          <span class="hljs xml mb-0 p-4 block min-h-full overflow-auto">
+            <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+          </span>
+
+          {/* <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 duration-300  right-2 top-2"></div> */}
+
+          <div class="absolute top-1 right-2 uppercase font-bold text-xs rounded-bl-md px-2 py-1">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={copyHTML}
+              className={"bg-gray-100/20"}
+            >
+              {copied ? (
+                <Check className=" h-4 w-4" />
+              ) : (
+                <Copy className=" h-4 w-4" />
+              )}
+              <span className="sr-only"> {copied ? "Copied!" : "Copy"}</span>
+            </Button>
+          </div>
+        </pre>
       </div>
     </TabsContent>
   );

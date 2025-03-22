@@ -15,6 +15,7 @@ export default function Home() {
       <ComponentShowcase/>
       <Community/>
       <Footer/>
+      
     </div>
   );
 }
