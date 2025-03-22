@@ -7,20 +7,12 @@ import Preview from "./Preview";
 import { Card } from "../ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-<<<<<<< HEAD
 import { BrushIcon, CodeIcon, EyeIcon, Save } from "lucide-react";
 import { Editor } from "../editor/DynamicEditor";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { cn, loadFromStorage, saveToStorage } from "@/lib/utils";
 import { toast } from "sonner";
-=======
-import { BrushIcon, CodeIcon, EyeIcon } from "lucide-react";
-import dynamic from "next/dynamic";
-import TempEditor2 from "./TempEditor2";
-
-// export const TempEditor2 = dynamic(() => import("./TempEditor2"), { ssr: false });
->>>>>>> 920f63dfc1ecfac3a69145269665b484906598d7
 
 const EditorArea = () => {
   const [copied, setCopied] = useState(false);

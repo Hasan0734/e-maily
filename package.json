@@ -32,10 +32,6 @@
     "lucide-react": "^0.483.0",
     "next": "15.2.2",
     "next-themes": "^0.4.6",
-<<<<<<< HEAD
-=======
-    "novel": "0.1.22",
->>>>>>> 920f63dfc1ecfac3a69145269665b484906598d7
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
