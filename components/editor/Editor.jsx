@@ -8,11 +8,8 @@ import { useCreateBlockNote } from "@blocknote/react";
 import { useEffect, useMemo } from "react";
 import { BlockNoteEditor } from "@blocknote/core";
 
-
-
-export default function Editor({ template, setTemplate }) {
+export default function Editor({ template, onChangeTemplate, setHTML }) {
   const { resolvedTheme } = useTheme();
-
 
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
@@ -33,9 +30,7 @@ export default function Editor({ template, setTemplate }) {
       <BlockNoteView
         editor={editor}
         theme={resolvedTheme === "light" ? "light" : "dark"}
-        onChange={() => {
-          setTemplate(editor.document);
-        }}
+        onChange={() => onChangeTemplate(editor)}
       ></BlockNoteView>
     </div>
   );

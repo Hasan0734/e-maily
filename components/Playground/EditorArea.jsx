@@ -11,24 +11,34 @@ import { BrushIcon, CodeIcon, EyeIcon, Save } from "lucide-react";
 import { Editor } from "../editor/DynamicEditor";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
-import { cn, loadFromStorage, saveToStorage } from "@/lib/utils";
+import { loadFromStorage, saveToStorage } from "@/lib/utils";
 import { toast } from "sonner";
+import { useCreateBlockNote } from "@blocknote/react";
 
 const EditorArea = () => {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("design");
   const [template, setTemplate] = useState(null);
+  const [html, setHTML] = useState("");
 
   const copyHTML = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const editor = useCreateBlockNote();
+
   useEffect(() => {
     loadFromStorage("editorContent").then((content) => {
       setTemplate(content);
+      onHTML(content);
     });
   }, []);
+
+  const onHTML = async (content) => {
+    const html = await editor.blocksToHTMLLossy(content);
+    setHTML(html);
+  };
 
   const saveDocument = () => {
     if (!template) {
@@ -39,6 +49,11 @@ const EditorArea = () => {
     saveToStorage("editorContent", template).then(() => {
       toast.success("Template saved");
     });
+  };
+
+  const onChangeTemplate = async (ed) => {
+    setTemplate(ed.document);
+    onHTML(ed.document);
   };
 
   return (
@@ -97,12 +112,12 @@ const EditorArea = () => {
                   >
                     <CodeIcon /> HTML
                   </TabsTrigger>
-                  <TabsTrigger
+                  {/* <TabsTrigger
                     value="preview"
                     onClick={() => setActiveTab("preview")}
                   >
                     <EyeIcon /> Preview
-                  </TabsTrigger>
+                  </TabsTrigger> */}
                 </TabsList>
 
                 <Button onClick={saveDocument}>
@@ -115,13 +130,16 @@ const EditorArea = () => {
               <div className="max-w-2xl mx-auto w-full">
                 <TabsContent value="design">
                   <Card>
-                    {/* <Tiptap /> */}
-                    <Editor setTemplate={setTemplate} template={template} />
+                    <Editor
+                      setHTML={setHTML}
+                      onChangeTemplate={onChangeTemplate}
+                      template={template}
+                    />
                   </Card>
                 </TabsContent>
                 <Card className={"py-0 overflow-hidden"}>
-                  <CodeTab copied={copied} copyHTML={copyHTML} />
-                  <Preview template={template} />
+                  <CodeTab copied={copied} copyHTML={copyHTML} html={html} />
+                  <Preview template={html} />
                 </Card>
               </div>
             </Card>
