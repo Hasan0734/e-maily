@@ -4,15 +4,54 @@ import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/shadcn";
 import "@blocknote/shadcn/style.css";
 import { useTheme } from "next-themes";
-import { useCreateBlockNote } from "@blocknote/react";
+import { getDefaultReactSlashMenuItems, SuggestionMenuController, useCreateBlockNote } from "@blocknote/react";
 import { useEffect, useMemo } from "react";
-import { BlockNoteEditor } from "@blocknote/core";
+import {
+  BlockNoteEditor,
+  BlockNoteSchema,
+  defaultBlockSpecs,
+  filterSuggestionItems,
+  insertOrUpdateBlock,
+} from "@blocknote/core";
+import { RiAlertFill } from "react-icons/ri";
+import { Alert } from "./blocks/alert";
 
-export default function Editor({ template, onChangeTemplate, setHTML }) {
+const schema = BlockNoteSchema.create({
+  blockSpecs: {
+    // Adds all default blocks.
+    ...defaultBlockSpecs,
+    // Adds the Alert block.
+    alert: Alert,
+  },
+});
+
+// Slash menu item to insert an Alert block
+const insertAlert = (editor) => ({
+  title: "Alert",
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: "alert",
+    });
+  },
+  aliases: [
+    "alert",
+    "notification",
+    "emphasize",
+    "warning",
+    "error",
+    "info",
+    "success",
+  ],
+  group: "Components",
+  icon: <RiAlertFill />,
+});
+
+export default function Editor({ template, onChangeTemplate }) {
   const { resolvedTheme } = useTheme();
 
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
+    schema,
     tables: {
       splitCells: true,
       cellBackgroundColor: true,
@@ -23,7 +62,6 @@ export default function Editor({ template, onChangeTemplate, setHTML }) {
     initialContent: template,
   });
 
-
   // Renders the editor instance using a React component.
   return (
     <div className="min-h-96">
@@ -31,7 +69,19 @@ export default function Editor({ template, onChangeTemplate, setHTML }) {
         editor={editor}
         theme={resolvedTheme === "light" ? "light" : "dark"}
         onChange={() => onChangeTemplate(editor)}
-      ></BlockNoteView>
+      >
+        {/* Replaces the default Slash Menu. */}
+        <SuggestionMenuController
+          triggerCharacter={"/"}
+          getItems={async (query) =>
+            // Gets all default slash menu items and `insertAlert` item.
+            filterSuggestionItems(
+              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor)],
+              query
+            )
+          }
+        />
+      </BlockNoteView>
     </div>
   );
 }

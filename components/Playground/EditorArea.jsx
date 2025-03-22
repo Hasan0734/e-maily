@@ -139,7 +139,7 @@ const EditorArea = () => {
                 </TabsContent>
                 <Card className={"py-0 overflow-hidden"}>
                   <CodeTab copied={copied} copyHTML={copyHTML} html={html} />
-                  <Preview template={html} />
+                  {/* <Preview template={html} /> */}
                 </Card>
               </div>
             </Card>
