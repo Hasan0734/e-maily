@@ -18,18 +18,11 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-
-const FormSchema = z.object({
-  APIProvider: z.enum(["RESEND"], {
-    required_error: "Please select an API Provider.",
-  }),
-  APIKey: z.string().min(1, "API Key is required!"),
-  APIEndpoint: z.string().optional(),
-});
+import { apiFormSchema } from "@/lib/form-schema";
 
 const ApiForm = () => {
   const form = useForm({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(apiFormSchema),
     defaultValues: {
       APIProvider: undefined, // Ensures validation triggers
       APIKey: "",
