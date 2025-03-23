@@ -8,7 +8,7 @@ import {
 import { Check, Copy, Eye, Save, Send, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import ApiFrom from "./ApiFrom";
+import ApiFrom from "../forms/ApiFrom";
 import { ThemeToggle } from "../theme-toggle";
 import { SidebarTrigger } from "../ui/sidebar";
 

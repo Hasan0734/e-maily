@@ -32,8 +32,7 @@ const Hero = () => {
                 className="bg-gradient-to-r from-cyan-500 to-amber-500 hover:from-cyan-600 hover:to-amber-600"
                 asChild
               >
-                <Link href={'/playground'}>
-                
+                <Link href={"/playground"}>
                   Start Creating
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
