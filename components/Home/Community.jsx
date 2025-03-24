@@ -1,6 +1,9 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
+import SubscribeForm from "../forms/subscribe-form";
+
+
 
 const Community = () => {
   return (
@@ -28,6 +31,7 @@ const Community = () => {
             Start Creating
           </Button>
         </div>
+        <SubscribeForm />
       </div>
     </section>
   );

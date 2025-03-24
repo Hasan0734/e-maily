@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { TabsContent } from "../ui/tabs";
 
 import hljs from "highlight.js/lib/core";
-import xml from "highlight.js/lib/languages/xml";
+import xml from 'highlight.js/lib/languages/xml'
 import "highlight.js/styles/atom-one-dark.css";
 import { html as beautifyHtml } from "js-beautify";
 

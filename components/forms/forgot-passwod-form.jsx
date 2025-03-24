@@ -15,14 +15,13 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { forgotPasswordSchema } from "@/lib/form-schema";
+import { emailSchema } from "@/lib/form-schema";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "../ui/form";
 
 const ForgotPasswordForm = ({ className, ...props }) => {
@@ -31,7 +30,7 @@ const ForgotPasswordForm = ({ className, ...props }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const form = useForm({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(emailSchema),
   });
 
   function onSubmit(data) {
@@ -50,11 +49,9 @@ const ForgotPasswordForm = ({ className, ...props }) => {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">
-            Forgot your password?
-          </CardTitle>
-          <CardDescription className="text-center">
+        <CardHeader className="text-center">
+          <CardTitle className="text-xl">Forgot your password?</CardTitle>
+          <CardDescription>
             Enter your email address and we'll send you a link to reset your
             password.
           </CardDescription>
@@ -62,46 +59,44 @@ const ForgotPasswordForm = ({ className, ...props }) => {
         <CardContent>
           {!isSubmitted ? (
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
+              <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="grid gap-6">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="m@example.com"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="grid gap-6">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className="h-8"
+                              placeholder="m@example.com"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-black hover:bg-gray-800 text-white"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send reset link"}
-                  </Button>
-                </div>
+                    <Button
+                      type="submit"
+                      className="w-full bg-black hover:bg-gray-800 text-white"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send reset link"}
+                    </Button>
 
-                <div className="text-center">
-                  <Link
-                    href="/login"
-                    className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900"
-                  >
-                    <ArrowLeft className="mr-1 h-4 w-4" />
-                    Back to login
-                  </Link>
+                    <div className="text-center">
+                      <Link
+                        href="/login"
+                        className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900"
+                      >
+                        <ArrowLeft className="mr-1 h-4 w-4" />
+                        Back to login
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </form>
             </Form>
@@ -126,8 +121,8 @@ const ForgotPasswordForm = ({ className, ...props }) => {
                     <p className="text-sm font-medium text-green-800">
                       Check your email
                     </p>
-                    <p className="mt-2 text-sm text-green-700">
-                      We've sent a password reset link to {email}
+                    <p className="mt-2 text-sm text-green-700 text-wrap">
+                      We've sent a password reset link to <br /> {email}
                     </p>
                   </div>
                 </div>
@@ -135,7 +130,6 @@ const ForgotPasswordForm = ({ className, ...props }) => {
               <Button
                 onClick={() => {
                   setEmail("");
-                  form.reset();
                   setIsSubmitted(false);
                 }}
                 variant="outline"
@@ -154,20 +148,12 @@ const ForgotPasswordForm = ({ className, ...props }) => {
               </div>
             </div>
           )}
-          <div className="mt-6 text-center text-xs text-gray-500">
-            By clicking continue, you agree to our
-            <br />
-            <Link href="/terms" className="underline hover:text-gray-900">
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy" className="underline hover:text-gray-900">
-              Privacy Policy
-            </Link>
-            .
-          </div>
         </CardContent>
       </Card>
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>.
+      </div>
     </div>
   );
 };
