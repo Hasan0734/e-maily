@@ -8,19 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+
 import Link from "next/link";
 import { signupSchema } from "@/lib/form-schema";
 import {
   Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import TextInput from "../ui/TextInput";
 
 export function SignupForm({ className, ...props }) {
   const form = useForm({
@@ -43,76 +39,39 @@ export function SignupForm({ className, ...props }) {
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="grid gap-6">
                 <div className="grid gap-6">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="John Weak"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                  <TextInput
+                    name="fullName"
+                    label="Full Name"
+                    form={form}
+                    placeholder="John Weak"
+                    message={true}
                   />
-                  <FormField
-                    control={form.control}
+
+                  <TextInput
                     name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="m@example.com"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    label="Email"
+                    form={form}
+                    placeholder="m@example.com"
+                    message={true}
                   />
-                  <FormField
-                    control={form.control}
+
+                  <TextInput
                     name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="****"
-                            type={"password"}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    label="Password"
+                    form={form}
+                    placeholder="*******"
+                    message={true}
+                    type="password"
                   />
-                  <FormField
-                    control={form.control}
+                  <TextInput
                     name="confirmPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Confrm Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="****"
-                            type={"password"}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    label="Confrm Password"
+                    form={form}
+                    placeholder="*******"
+                    message={true}
+                    type="password"
                   />
+
                   <Button type="submit" className="w-full">
                     Sign Up
                   </Button>

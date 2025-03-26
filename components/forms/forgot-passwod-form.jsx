@@ -16,13 +16,8 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { emailSchema } from "@/lib/form-schema";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import TextInput from "../ui/TextInput";
 
 const ForgotPasswordForm = ({ className, ...props }) => {
   const [email, setEmail] = useState("");
@@ -62,21 +57,12 @@ const ForgotPasswordForm = ({ className, ...props }) => {
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="grid gap-6">
                   <div className="grid gap-6">
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              className="h-8"
-                              placeholder="m@example.com"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
+                    <TextInput
+                      name={"email"}
+                      label="Email"
+                      form={form}
+                      placeholder="m@example.com"
+                      message={true}
                     />
 
                     <Button

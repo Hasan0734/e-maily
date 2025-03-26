@@ -2,41 +2,63 @@ import React from "react";
 import { Card } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import TextInput from "../ui/TextInput";
 
 const EmailForm = () => {
+  const form = useForm({
+    resolver: zodResolver(),
+  });
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   return (
     <Card className="overflow-hidden border-slate-200 p-3 sm:p-6 dark:border-slate-700 mb-6">
       <h2 className="mb-4 text-lg font-medium">Email Details</h2>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="subject">
-            Subject <span className="text-red-500">*</span>
-          </Label>
-          <Input
-            id="subject"
-            placeholder="Email Subject"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-6 md:grid-cols-2"
+        >
+          <TextInput
+            name={"subject"}
+            label="Subject"
+            form={form}
+            placeholder={"Email Subject"}
             defaultValue="Discover Maily"
+            message={true}
           />
-        </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="from">From</Label>
-          <Input id="from" placeholder="hello@componseFlow" />
-        </div>
+          <TextInput
+            name={"from"}
+            label="Form"
+            form={form}
+            placeholder="hello@componseFlow"
+            message={true}
+          />
 
-        <div className="space-y-2">
-          <Label htmlFor="to">
-            To <span className="text-red-500">*</span>
-          </Label>
-          <Input id="to" placeholder="Email Recipient(s)" />
-        </div>
+          <TextInput
+            name={"to"}
+            label="To"
+            form={form}
+            placeholder="Email Recipient(s)"
+            message={true}
+          />
 
-        <div className="space-y-2">
-          <Label htmlFor="reply-to">Reply-To</Label>
-          <Input id="reply-to" placeholder="Reply-To Email" />
-        </div>
-      </div>
+          <TextInput
+            name="reply-to"
+            label="Reply-To"
+            form={form}
+            placeholder="Reply-To Email"
+            message={true}
+          />
+        </form>
+      </Form>
     </Card>
   );
 };

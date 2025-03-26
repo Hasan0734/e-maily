@@ -19,6 +19,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { apiFormSchema } from "@/lib/form-schema";
+import TextInput from "../ui/TextInput";
 
 const ApiForm = () => {
   const form = useForm({
@@ -50,9 +51,7 @@ const ApiForm = () => {
             name="APIProvider"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Provider <span className="text-red-500">*</span>
-                </FormLabel>
+                <FormLabel>Provider</FormLabel>
                 <Select
                   onValueChange={(value) => {
                     field.onChange(value);
@@ -72,35 +71,21 @@ const ApiForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="APIKey"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  API Key <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-8" placeholder="API Key" />
-                </FormControl>
-              </FormItem>
-            )}
+
+          <TextInput
+            form={form}
+            name={"APIKey"}
+            label={"API Key"}
+            placeholder="API Key"
+            message={true}
           />
-          <FormField
-            control={form.control}
-            name="APIEndpoint"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Endpoint</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    className="h-8"
-                    placeholder="API Endpoint"
-                  />
-                </FormControl>
-              </FormItem>
-            )}
+
+          <TextInput
+            form={form}
+            name={"APIEndpoint"}
+            label={"Endpoint"}
+            placeholder="API Endpoint"
+            message={true}
           />
         </div>
         <Button type="submit" className="w-full flex items-center gap-0.5">

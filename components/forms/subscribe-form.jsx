@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
@@ -6,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { emailSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
+import TextInput from "../ui/TextInput";
 
 const SubscribeForm = () => {
   const [email, setEmail] = useState("");
@@ -34,21 +36,8 @@ const SubscribeForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex w-full max-w-sm items-center space-x-2">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="h-8"
-                      placeholder="m@example.com"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+         
+            <TextInput form={form} name={"email"} placeholder="m@example.com" />
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Loading..." : "Subscribe"}
             </Button>

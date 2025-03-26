@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "@/lib/form-schema";
+import TextInput from "../ui/TextInput";
 
 export function LoginForm({ className, ...props }) {
   const form = useForm({
@@ -62,28 +63,24 @@ export function LoginForm({ className, ...props }) {
               </div> */}
 
                 <div className="grid gap-6">
-                  <FormField
-                    control={form.control}
+                  <TextInput
                     name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="m@example.com"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
+                    label="Email"
+                    form={form}
+                    placeholder="m@example.com"
+                    message={true}
                   />
 
-                  <FormField
-                    control={form.control}
+                  <TextInput
                     name="password"
-                    render={({ field }) => (
-                      <FormItem>
+                    label="Password"
+                    form={form}
+                    placeholder="*******"
+                    type="password"
+                    message={true}
+                    isLabelSub={true}
+                    labelComponent={
+                      <>
                         <div className="flex items-center">
                           <FormLabel>Password</FormLabel>
                           <Link
@@ -93,16 +90,8 @@ export function LoginForm({ className, ...props }) {
                             Forgot your password?
                           </Link>
                         </div>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="h-8"
-                            placeholder="****"
-                            type={"password"}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
+                      </>
+                    }
                   />
 
                   <Button type="submit" className="w-full">
